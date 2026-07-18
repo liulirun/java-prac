@@ -1,8 +1,5 @@
 {
   "java.debug.settings.onBuildFailureProceed": true,
-  "java.project.sourcePaths": [
-    "fundamental",
-    "practice"
-  ],
+  "java.project.sourcePaths": ["fundamental", "practice"],
   "java.project.outputPath": "bin"
 }
