@@ -1,0 +1,97 @@
+{
+  "data": {
+    "accounts": {
+      "total": 7,
+      "personal": {
+        "accounts": {
+          "banking": {
+            "accounts": [
+              {
+                "key": "mock_account_cheq_1",
+                "status": "AVAILABLE",
+                "ownership_type": "RETAIL",
+                "resource": "chq",
+                "business_functions": [
+                  {
+                    "function_name": "MAKE_CASH_DEPOSIT"
+                  },
+                  {
+                    "function_name": "MAKE_CHEQUE_DEPOSIT"
+                  }
+                ]
+              },
+              {
+                "key": "mock_account_sav_1",
+                "status": "AVAILABLE",
+                "ownership_type": "RETAIL",
+                "resource": "sav",
+                "business_functions": [
+                  {
+                    "function_name": "TRANSFER_FROM"
+                  },
+                  {
+                    "function_name": "MAKE_CHEQUE_DEPOSIT"
+                  }
+                ]
+              }
+            ]
+          },
+          "credit_card": {
+            "accounts": [
+              {
+                "key": "mock_account_cc_1",
+                "status": "AVAILABLE",
+                "ownership_type": "RETAIL",
+                "resource": "cc",
+                "business_functions": [
+                  {
+                    "function_name": "E_TRANSFER"
+                  },
+                  {
+                    "function_name": "TAP"
+                  }
+                ]
+              },
+              {
+                "key": "mock_account_cc_2",
+                "status": "AVAILABLE",
+                "ownership_type": "RETAIL",
+                "resource": "cc",
+                "business_functions": [
+                  {
+                    "function_name": "E_TRANSFER"
+                  },
+                  {
+                    "function_name": "TXN_DISPUTE"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "business": {
+        "accounts": {
+          "banking": {
+            "accounts": [
+              {
+                "key": "mock_account_cheq_2",
+                "status": "AVAILABLE",
+                "ownership_type": "BUSINESS",
+                "resource": "chq",
+                "business_functions": [
+                  {
+                    "function_name": "BUSINESS_TRANSFER_TO"
+                  },
+                  {
+                    "function_name": "BUSINESS_TRANSFER_FROM"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
