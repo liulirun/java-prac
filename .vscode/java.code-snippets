@@ -1,0 +1,9 @@
+{
+  "System.out.print": {
+    "prefix": "sysp",
+    "body": [
+      "System.out.println($1);"
+    ],
+    "description": "Shortcut for System.out.print"
+  }
+}

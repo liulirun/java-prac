@@ -1,0 +1,30 @@
+{
+  "name": "prac_java",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+  "experimentalLockfile": false,
+  "runArgs": [
+    "--name",
+    "prac_java"
+  ],
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "21"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": ["vscjava.vscode-java-pack"],
+      "settings": {
+        "editor.inlayHints.enabled": "on",
+        "java.inlayHints.parameterNames.enabled": "all",
+        "java.inlayHints.variableTypes.enabled": true,
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "redhat.java",
+        "java.format.settings.url": "https://githubusercontent.com"
+      }
+    }
+  }
+}

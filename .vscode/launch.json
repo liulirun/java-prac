@@ -1,0 +1,11 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Java: Debug Current File (F5)",
+      "type": "java",
+      "request": "launch",
+      "mainClass": "${file}"
+    }
+  ]
+}
