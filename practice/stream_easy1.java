@@ -30,12 +30,10 @@ public class stream_easy1 {
   public static void main(String[] args) {
     Order[] ordersArray = returnOdrder();
     // filterUnshippedThenSort(ordersArray);
+    // groupAndPrintByCategory(ordersArray);
 
-    groupAndPrintByCategory(ordersArray);
-    // sortOrdersByPriceDescending(ordersArray);
-    // checkIfAllOrdersAreExpensive(ordersArray);
-    // findCheapestBook(ordersArray);
-    // getFlattenedUniqueCategories(ordersArray);
+    findCheapestBook(ordersArray);
+    getFlattenedUniqueCategories(ordersArray);
   }
 
   static void filterUnshippedThenSort(Order[] orders) {
@@ -43,7 +41,6 @@ public class stream_easy1 {
     Arrays.stream(orders)
         .filter(o -> o.shipped && o.price > 10)
         .sorted(Comparator.<Order>comparingDouble(o -> o.price).reversed())
-        // .map(o -> o.customer)
         .forEach(o -> System.out.println(o.customer + ": " + o.price));
   }
 
@@ -57,55 +54,40 @@ public class stream_easy1 {
             Collectors.mapping(
                 o -> o.customer.toUpperCase(),
                 Collectors.toList())));
-
-    Map<String, List<String>> g = Arrays.stream(orders)
-        .collect(Collectors.groupingBy(
-            Order::category,
-            Collectors.mapping(
-                o -> o.customer.toLowerCase(),
-                Collectors.toList())));
-
     g1.forEach((category, list) -> System.out.println("g1:\"" + category + "\": " + list));
-    g.forEach((category, list) -> System.out.println("g:\"" + category + "\": " + list));
 
-    // G2: Group by Shipping Status -> Original Customer Names
-    Map<String, List<String>> g2 = Arrays.stream(orders)
-        .collect(Collectors.groupingBy(
-            o -> o.shipped ? "shipped" : "not_shipped",
-            Collectors.mapping(
-                Order::customer,
-                Collectors.toList())));
-    g2.forEach((status, list) -> System.out.println("g2:\"" + status + "\": " +
-        list));
+    // G3: Group by Category -> Extract List of IDs in forEach
+    Map<String, List<Order>> g3 = Arrays.stream(orders)
+        .collect(Collectors.groupingBy(o -> o.category));
 
-    // // G3: Group by Category -> Extract List of IDs in forEach
-    // Map<String, List<Order>> g3 = Arrays.stream(orders)
-    // .collect(Collectors.groupingBy(o -> o.category));
-
-    // g3.forEach((category, list) -> {
-    // List<Integer> ids = list.stream()
-    // .map(o -> o.id)
-    // .collect(Collectors.toList());
-    // System.out.println("g3:" + category + ": " + ids);
-    // });
-  }
-
-  static void checkIfAllOrdersAreExpensive(Order[] orders) {
-    System.out.println("\n--- 6. MATCH: Checking Conditional Requirements ---");
-    boolean hasSuperExpensive = Arrays.stream(orders).anyMatch(o -> o.price > 1000.00);
-    boolean allOverTenDollars = Arrays.stream(orders).allMatch(o -> o.price > 10.00);
-    System.out.printf("Has order > $1000? %b | Are all orders > $10? %b%n", hasSuperExpensive, allOverTenDollars);
+    g3.forEach((category, list) -> {
+      List<Integer> ids = list.stream()
+          .map(o -> o.id)
+          .collect(Collectors.toList());
+      System.out.println("g3:" + category + ": " + ids);
+    });
   }
 
   static void findCheapestBook(Order[] orders) {
     System.out.println("\n--- 7. MIN/MAX: Find Specific Element Safely ---");
+
+    boolean hasSuperExpensive = Arrays.stream(orders)
+        .anyMatch(o -> o.price > 1000.00);
+    System.out.printf("Has order > $1000? %s%n", hasSuperExpensive);
+    boolean allOverTenDollars = Arrays.stream(orders)
+        .allMatch(o -> o.price > 10.00);
+    System.out.printf("Are all orders > $10? %s%n", allOverTenDollars);
+
     Optional<Order> cheapestBook = Arrays.stream(orders)
         .filter(o -> "Books".equals(o.category))
         .min(Comparator.comparingDouble(o -> o.price));
-
     cheapestBook.ifPresentOrElse(
         b -> System.out.println("Cheapest Book: " + b.toJsonString()),
         () -> System.out.println("No books found."));
+
+    Long count = Arrays.stream(orders)
+        .filter(o -> "Books".equals(o.category)).count();
+    System.out.println(count);
   }
 
   static void getFlattenedUniqueCategories(Order[] orders) {
