@@ -67,3 +67,21 @@ These methods trigger the processing of the stream and produce a final result (l
 **Note:** The `lambda$...` methods in your list are internal generated code used for mapping logic and are not intended to be called by developers directly.
 
 
+Here is the comparison table matching the intermediate/terminal methods on a `Stream` with their corresponding downstream `Collectors` counterparts, along with their return types.
+
+| Stream Method            | Stream Return Type   | Equivalent Collector                                 | Collector Return Type          | Use Case / When to Use                                                                          |
+| ------------------------ | -------------------- | ---------------------------------------------------- | ------------------------------ | ----------------------------------------------------------------------------------------------- |
+| **`.map(Function)`**     | `Stream<R>`          | **`Collectors.mapping(Function, downstream)`**       | `Collector<T, ?, R>`           | Transforms the data elements from one type to another.                                          |
+| **`.filter(Predicate)`** | `Stream<T>`          | **`Collectors.filtering(Predicate, downstream)`**    | `Collector<T, ?, R>`           | Keeps or discards items inside a group based on a condition.                                    |
+| **`.flatMap(Function)`** | `Stream<R>`          | **`Collectors.flatMapping(Function, downstream)`**   | `Collector<T, ?, R>`           | Flattens nested collections (like turning a `List<List<String>>` into a single `List<String>`). |
+| **`.count()`**           | `long`               | **`Collectors.counting()`**                          | `Collector<T, ?, Long>`        | Counts the total number of elements in the group.                                               |
+| **`.distinct()`**        | `Stream<T>`          | *(No direct function, use **`Collectors.toSet()`**)* | `Collector<T, ?, Set<T>>`      | Removes duplicate entries.                                                                      |
+| **`.reduce(...)`**       | `Optional<T>` or `T` | **`Collectors.reducing(...)`**                       | `Collector<T, ?, Optional<T>>` | Combines elements into a single value (e.g., custom math or string concatenation).              |
+| **`.toList()`**          | `List<T>`            | **`Collectors.toList()`**                            | `Collector<T, ?, List<T>>`     | Collects elements into a modifiable or unmodifiable List.                                       |
+
+The Golden Rule to Remember
+
+- Use the **Stream Method** when you are processing the **entire global dataset** in a single, straight line.
+- Use the **Collector** version when you are inside a **`groupingBy`** block and need to perform that operation independently on each separate sub-group or "bucket."
+
+If you want to practice, I can give you a **quick 3-question quiz** using these exact transformations to test your understanding. Would you like that?
