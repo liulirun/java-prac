@@ -1,6 +1,6 @@
 # Unique Stream Methods - Combined Guide
 
-This guide combines `unique_methods_Stream.md` and `unique_methods_Stream2.md` into one cleaner quick-reference. Use it to remember how to create streams, transform them, finish them, collect results, and sort with comparators.
+Use it to remember how to create streams, transform them, finish them, collect results, and sort with comparators.
 
 ## Quick Mental Model
 
