@@ -1,5 +1,5 @@
 {
   "java.debug.settings.onBuildFailureProceed": true,
-  "java.project.sourcePaths": ["stream", "datastruct", "practice", "leetcode"],
+  "java.project.sourcePaths": ["typing_fun", "stream", "datastruct", "practice", "leetcode"],
   "java.project.outputPath": "bin"
 }
