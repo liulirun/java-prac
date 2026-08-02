@@ -33,7 +33,7 @@ public class stream_easy1 {
     // groupAndPrintByCategory(ordersArray);
 
     findCheapestBook(ordersArray);
-    getFlattenedUniqueCategories(ordersArray);
+    // getFlattenedUniqueCategories(ordersArray);
   }
 
   static void filterUnshippedThenSort(Order[] orders) {
@@ -81,6 +81,7 @@ public class stream_easy1 {
     Optional<Order> cheapestBook = Arrays.stream(orders)
         .filter(o -> "Books".equals(o.category))
         .min(Comparator.comparingDouble(o -> o.price));
+
     cheapestBook.ifPresentOrElse(
         b -> System.out.println("Cheapest Book: " + b.toJsonString()),
         () -> System.out.println("No books found."));

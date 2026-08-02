@@ -5,55 +5,46 @@ import java.util.stream.Collectors;
 public class stream_threelevels_medium1 {
 
   // Level 3: Lowest Leaf Node
-  static class Project {
-    String name;
-    String status; // "Active", "Completed"
-
-    Project(String name, String status) {
-      this.name = name;
-      this.status = status;
-    }
+  // Renamed 'name' to 'projectName'
+  record Project(String projectName, String status) {
   }
 
   // Level 2: Middle Node
-  static class Department {
-    String name;
-    List<Project> projects;
-
-    Department(String name, Project... projects) {
-      this.name = name;
-      this.projects = Arrays.asList(projects);
+  // Renamed 'name' to 'departmentName'
+  record Department(String departmentName, List<Project> projects) {
+    public Department(String departmentName, Project... projects) {
+      this(departmentName, List.of(projects));
     }
   }
 
   // Level 1: Root Node
-  static class Company {
-    String name;
-    String industry;
-    List<Department> departments;
-
-    Company(String name, String industry, Department... departments) {
-      this.name = name;
-      this.industry = industry;
-      this.departments = Arrays.asList(departments);
+  // Renamed 'name' to 'companyName'
+  record Company(String companyName, String industry, List<Department> departments) {
+    public Company(String companyName, String industry, Department... departments) {
+      this(companyName, industry, List.of(departments));
     }
   }
 
-  public static void main(String[] args) {
-    // Setup 3-Level Deep Hierarchical Mock Data
-    List<Company> companies = Arrays.asList(
+  public static List<Company> getMockCompanies() {
+    return List.of(
         new Company("TechCorp", "Tech",
             new Department("Engineering",
                 new Project("Cloud Migration", "Active"),
                 new Project("Legacy Refactor", "Completed")),
             new Department("HR",
                 new Project("Hiring Pipeline", "Active"))),
+
         new Company("HealthInc", "Healthcare",
             new Department("Research",
                 new Project("Vaccine Study", "Completed"))),
+
         new Company("FinancePro", "Finance",
             new Department("Analytics",
                 new Project("Risk Engine", "Active"))));
+  }
+
+  public static void main(String[] args) {
+    List<Company> companies = getMockCompanies();
 
     // filterFirstLevel(companies);
     filterSecondLevel(companies);
@@ -70,10 +61,10 @@ public class stream_threelevels_medium1 {
 
     List<String> names = companies.stream()
         .filter(c -> "Tech".equals(c.industry))
-        .map(c -> c.name)
+        .map(c -> c.companyName) // Updated getter
         .collect(Collectors.toList());
 
-    System.out.println("Result: " + names); // [TechCorp]
+    System.out.println("Result: " + names);
   }
 
   // =========================================================================
@@ -82,17 +73,16 @@ public class stream_threelevels_medium1 {
   static void filterSecondLevel(List<Company> companies) {
     System.out.println("\n--- 2. FILTER BY LEVEL 2: Companies with an 'Engineering' Department ---");
 
-    // Mock target departments for this execution context
     List<String> targetDepts = Arrays.asList("Engineering", "Analytics");
 
     List<String> names = companies.stream()
         .filter(c -> c.departments.stream().anyMatch(
             d -> targetDepts.stream().anyMatch(
-                t -> d.name.contains(t))))
-        .map(c -> c.name)
+                t -> d.departmentName.contains(t)))) // Updated getter
+        .map(c -> c.companyName) // Updated getter
         .collect(Collectors.toList());
 
-    System.out.println("Result: " + names); // [TechCorp]
+    System.out.println("Result: " + names);
   }
 
   // =========================================================================
@@ -103,12 +93,12 @@ public class stream_threelevels_medium1 {
 
     List<String> names = companies.stream()
         .filter(c -> c.departments.stream()
-            .flatMap(d -> d.projects.stream()) // Flattens all nested projects into a single stream
+            .flatMap(d -> d.projects.stream())
             .allMatch(p -> "Active".equals(p.status)))
-        .map(c -> c.name)
+        .map(c -> c.companyName) // Updated getter
         .collect(Collectors.toList());
 
-    System.out.println("Result: " + names); // [TechCorp, FinancePro]
+    System.out.println("Result: " + names);
   }
 
   // =========================================================================
@@ -118,15 +108,12 @@ public class stream_threelevels_medium1 {
     System.out.println("\n--- 3C. FILTER BY LEVEL 3: Departments that have ANY 'Active' Project ---");
 
     List<String> deptNames = companies.stream()
-        // 1. Break the Company shell and stream all Departments directly
         .flatMap(c -> c.departments.stream())
-        // 2. Now 'd' represents a Department. Look inside its projects.
         .filter(d -> d.projects.stream()
             .anyMatch(p -> "Active".equals(p.status)))
-        // 3. Extract the Department name
-        .map(d -> d.name)
+        .map(d -> d.departmentName) // Updated getter
         .collect(Collectors.toList());
-    System.out.println("Result: " + deptNames); // [Engineering, HR, Analytics]
+    System.out.println("Result: " + deptNames);
   }
 
   // =========================================================================
@@ -136,12 +123,12 @@ public class stream_threelevels_medium1 {
     System.out.println("\n--- 3B. FILTER BY LEVEL 3: Extract names of ALL 'Completed' Projects ---");
 
     List<String> completedProjectNames = companies.stream()
-        .flatMap(c -> c.departments.stream()) // Drop Level 1 -> Stream of Departments
-        .flatMap(d -> d.projects.stream()) // Drop Level 2 -> Stream of Projects
+        .flatMap(c -> c.departments.stream())
+        .flatMap(d -> d.projects.stream())
         .filter(p -> "Completed".equals(p.status))
-        .map(p -> p.name)
+        .map(p -> p.projectName) // Updated getter
         .collect(Collectors.toList());
 
-    System.out.println("Result: " + completedProjectNames); // [Legacy Refactor, Vaccine Study]
+    System.out.println("Result: " + completedProjectNames);
   }
 }
