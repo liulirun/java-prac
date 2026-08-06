@@ -7,7 +7,7 @@ import java.util.List;
 // need to get fluent with Arraylist operations/methods 
 // need to have questions + answers
 // need to see common java traps
-public class ArrayList_Fun {
+public class ArrayListFun {
   public static void main(String[] args) {
     ArrayList<Integer> dupList = new ArrayList<Integer>(List.of(10, 10, 11, 12, 12, 15, 15, 15, 11, 18));
 
