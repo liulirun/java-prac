@@ -9,7 +9,9 @@ These are the standard methods you call when interacting with a `HashMap`.
 | Method         | Description                  | Return Type     | Example                   | Big O() Complexity                     |
 | -------------- | ---------------------------- | --------------- | ------------------------- | -------------------------------------- |
 | `put`          | Adds/Updates a pair          | `V`             | `map.put("k", v)`         | **O(1)** average / **O(n)** worst-case |
+| `replace`      | Adds/Updates a pair          | `V`             | `map.replace("k", v)`     | **O(1)** average / **O(n)** worst-case |
 | `get`          | Gets value by key            | `V`             | `map.get("k")`            | **O(1)** average / **O(n)** worst-case |
+| `getOrDefault` | Get value or default         | `V`             | `map.getOrDefault(k, 0)`  | **O(1)** average / **O(n)** worst-case |
 | `remove`       | Deletes by key               | `V`             | `map.remove("k")`         | **O(1)** average / **O(n)** worst-case |
 | `containsKey`  | Checks if key exists         | `boolean`       | `map.containsKey("k")`    | **O(1)** average / **O(n)** worst-case |
 | `size`         | Count of entries             | `int`           | `map.size()`              | **O(1)**                               |
@@ -18,7 +20,6 @@ These are the standard methods you call when interacting with a `HashMap`.
 | `keySet`       | Returns set of keys          | `Set<K>`        | `map.keySet()`            | **O(1)** *(Returns a view)*            |
 | `values`       | Returns collection of values | `Collection<V>` | `map.values()`            | **O(1)** *(Returns a view)*            |
 | `entrySet`     | Returns set of entries       | `Set<Entry>`    | `map.entrySet()`          | **O(1)** *(Returns a view)*            |
-| `getOrDefault` | Get value or default         | `V`             | `map.getOrDefault(k, 0)`  | **O(1)** average / **O(n)** worst-case |
 | `forEach`      | Functional iteration         | `void`          | `map.forEach((k,v)->...)` | **O(n)** where *n* is capacity         |
 
 Table 3: Advanced, Internal & Utility Methods
@@ -31,14 +32,8 @@ These include functional computing methods and internal logic like tree manageme
 | `merge`        | Merges old/new values     | Functional | `map.merge(k, v, bifunc)`    | **O(1)** average / **O(n)** worst-case |
 | `putIfAbsent`  | Adds if key is missing    | Logic      | `map.putIfAbsent(k, v)`      | **O(1)** average / **O(n)** worst-case |
 | `replace`      | Replaces if present       | Logic      | `map.replace(k, oldV, newV)` | **O(1)** average / **O(n)** worst-case |
-| `resize`       | Grows internal table      | Internal   | Triggered by `loadFactor`    | **O(n)** where *n* is capacity         |
-| `hash`         | Calculates hash code      | Internal   | `static final int hash()`    | **O(1)**                               |
-| `treeifyBin`   | Converts bins to Trees    | Internal   | High collision handling      | **O(log n)** tree lookup / creation    |
-| `newNode`      | Creates a basic Node      | Internal   | Entry creation               | **O(1)**                               |
 | `readObject`   | Deserializes map          | Utility    | `java.io` operations         | **O(n)** where *n* is elements         |
 | `clone`        | Shallow copy              | Utility    | `(HashMap) map.clone()`      | **O(n)** where *n* is capacity         |
-| `tableSizeFor` | Power-of-two sizing       | Internal   | Initial capacity logic       | **O(1)** *(Bitwise operations)*        |
-| `afterNode...` | Callbacks (LinkedHashMap) | Internal   | Access/Removal hooks         | **O(1)**                               |
 
 Table 1: Data `-->` HashMap
 
