@@ -1,4 +1,4 @@
-public class AbstractClassFun1 {
+public class AbstractClass1 {
   // 1. Added static so Java recognizes it as the program entry point
   public static void main(String[] args) {
     Shape circle = new Circle("Red", 5.0);

@@ -93,7 +93,7 @@ class AWSStorage implements CloudStorage {
 }
 ```
 
-Part 1: Detailed SOLID Principles Breakdown
+# Detailed SOLID Principles Breakdown
 
 1\. Single Responsibility Principle (SRP)
 
@@ -212,7 +212,7 @@ class DipCar {
 }
 ```
 
-Part 2: Interface vs. Abstract Class vs. Concrete Class
+# Interface vs. Abstract Class vs. Concrete Class
 
 This structural comparison tests your foundational knowledge of OOP design tradeoffs in Java.
 
@@ -296,7 +296,7 @@ class ConcreteEmployee extends BaseWorker implements DataContract {
 }
 ```
 
-Part 3: Easily Confusing & Frequently Asked Interview Questions
+# Easily Confusing & Frequently Asked Interview Questions
 
 Q1: What is the difference between `final`, `finally`, and `finalize`?
 

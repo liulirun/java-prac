@@ -93,7 +93,7 @@ An object-creation blueprint (a function or service) is injected into the class 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
-
+ 
 // Dependency
 class DynamicOrderItem {
     private final String name;
