@@ -2,10 +2,7 @@
   "name": "prac_java",
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
   "experimentalLockfile": false,
-  "runArgs": [
-    "--name",
-    "prac_java"
-  ],
+  "runArgs": ["--name", "prac_java"],
   "features": {
     "ghcr.io/devcontainers/features/java:1": {
       "version": "21"
@@ -23,7 +20,11 @@
         "editor.detectIndentation": false,
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "redhat.java",
-        "java.format.settings.url": "https://githubusercontent.com"
+        "java.format.enabled": true,
+        "java.format.settings.profile": "Compact Java",
+        "java.format.settings.url": ".vscode/eclipse-formatter.xml",
+        "java.format.onEnter.enable": true,
+        "java.completion.guessMethodArguments": true
       }
     }
   }
